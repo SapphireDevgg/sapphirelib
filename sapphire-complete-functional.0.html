@@ -1,0 +1,3087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sapphire Oficial | Roblox Scripts & Executor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: #0f0f0f;
+            --foreground: #f8f8f8;
+            --primary: #ff0033;
+            --primary-foreground: #ffffff;
+            --secondary: #1a1a1a;
+            --secondary-foreground: #f8f8f8;
+            --accent: #ff0033;
+            --accent-foreground: #ffffff;
+            --border: #333333;
+            --input: #1a1a1a;
+            --ring: #ff0033;
+            --card: #1a1a1a;
+            --card-foreground: #f8f8f8;
+            --destructive: #ff0033;
+            --destructive-foreground: #ffffff;
+            --muted: #333333;
+            --muted-foreground: #a1a1aa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        header {
+            background-color: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .logo img {
+            height: 32px;
+            width: auto;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: var(--foreground);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--foreground);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(15, 15, 15, 0.9), rgba(15, 15, 15, 1));
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 0, 51, 0.15), transparent 60%);
+            pointer-events: none;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ff0033, #ff3366);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 0, 51, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #cccccc;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 0, 51, 0.7);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            box-shadow: 0 5px 15px rgba(255, 0, 51, 0.3);
+        }
+        
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            background: linear-gradient(to right, #ff0033, #ff3366);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.75rem;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, #ff0033, #ff3366);
+            border-radius: 3px;
+        }
+        
+        .pricing {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .price-card {
+            background-color: var(--card);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #ff0033, #ff3366);
+        }
+        
+        .price-card.popular::after {
+            content: 'POPULAR';
+            position: absolute;
+            top: 1.5rem;
+            right: -2rem;
+            background: linear-gradient(to right, #ff0033, #ff3366);
+            color: white;
+            padding: 0.25rem 2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+        }
+        
+        .price-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(255, 0, 51, 0.2);
+        }
+        
+        .price-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .features {
+            margin-bottom: 2rem;
+        }
+        
+        .features li {
+            margin-bottom: 0.75rem;
+            list-style: none;
+            color: var(--muted-foreground);
+        }
+        
+        .features li::before {
+            content: '✓';
+            color: var(--primary);
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .payment-method {
+            padding: 0.5rem 1rem;
+            background-color: var(--input);
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .payment-method:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .scripts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .script-card {
+            background-color: var(--card);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .script-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .script-image {
+            width: 100%;
+            height: 160px;
+            background-color: #333;
+            object-fit: cover;
+        }
+        
+        .script-content {
+            padding: 1.5rem;
+        }
+        
+        .script-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
+        }
+        
+        .script-description {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background-color: rgba(255, 0, 51, 0.2);
+            color: var(--primary);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .executor-section {
+            background-color: var(--secondary);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-top: 3rem;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .executor-section {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+        
+        .executor-content {
+            flex: 1;
+        }
+        
+        .executor-image {
+            flex: 1;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .executor-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .executor-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ff0033, #ff3366);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        
+        .stat-card {
+            background-color: var(--card);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #ff0033, #ff3366);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .stat-label {
+            color: var(--muted-foreground);
+            font-size: 1rem;
+        }
+        
+        .testimonials {
+            margin-top: 4rem;
+        }
+        
+        .testimonial-card {
+            background-color: var(--card);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            font-size: 4rem;
+            color: var(--primary);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--muted-foreground);
+            padding-left: 1rem;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--muted);
+            overflow: hidden;
+        }
+        
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .testimonial-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .testimonial-info p {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+        
+        .faq-section {
+            margin-top: 4rem;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 0;
+        }
+        
+        .faq-question {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .faq-item.active .faq-question::after {
+            content: '-';
+        }
+        
+        .faq-answer {
+            color: var(--muted-foreground);
+            display: none;
+            padding-bottom: 1rem;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 5rem 0;
+            background: linear-gradient(to bottom, rgba(15, 15, 15, 0.9), rgba(15, 15, 15, 1));
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 0, 51, 0.15), transparent 60%);
+            pointer-events: none;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #ff0033, #ff3366);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .cta-description {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #cccccc;
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            transition: color 0.2s;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: var(--muted);
+            border-radius: 50%;
+            color: var(--foreground);
+            transition: all 0.2s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+        }
+        
+        .login-form {
+            background-color: var(--card);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .form-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            color: var(--foreground);
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(255, 0, 51, 0.2);
+        }
+        
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .social-login {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .social-login-title {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .social-login-title::before,
+        .social-login-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background-color: var(--border);
+        }
+        
+        .social-login-title::before {
+            left: 0;
+        }
+        
+        .social-login-title::after {
+            right: 0;
+        }
+        
+        .social-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--muted);
+            border-radius: 50%;
+            color: var(--foreground);
+            transition: all 0.2s;
+        }
+        
+        .social-button:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .pix-payment {
+            background-color: var(--card);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            max-width: 500px;
+            margin: 3rem auto;
+            text-align: center;
+        }
+        
+        .pix-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--foreground);
+        }
+        
+        .pix-qr {
+            width: 200px;
+            height: 200px;
+            background-color: white;
+            margin: 0 auto 2rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+        
+        .pix-qr img {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .pix-key {
+            background-color: var(--input);
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin-bottom: 1.5rem;
+            word-break: break-all;
+            font-family: monospace;
+            color: var(--muted-foreground);
+        }
+        
+        .pix-instructions {
+            text-align: left;
+            margin-top: 2rem;
+        }
+        
+        .pix-instructions h4 {
+            margin-bottom: 1rem;
+            color: var(--foreground);
+        }
+        
+        .pix-instructions ol {
+            padding-left: 1.5rem;
+            color: var(--muted-foreground);
+        }
+        
+        .pix-instructions li {
+            margin-bottom: 0.75rem;
+        }
+
+        /* Page system */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Script details page */
+        .script-details {
+            background-color: var(--card);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .script-details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .script-details-title {
+            font-size: 2rem;
+            background: linear-gradient(to right, #ff0033, #ff3366);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .script-details-badges {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .script-details-content {
+            margin-bottom: 2rem;
+        }
+
+        .script-details-description {
+            color: var(--muted-foreground);
+            margin-bottom: 1.5rem;
+        }
+
+        .script-code {
+            background-color: var(--background);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            font-family: monospace;
+            color: var(--foreground);
+            border: 1px solid var(--border);
+        }
+
+        .script-code pre {
+            white-space: pre-wrap;
+        }
+
+        .script-details-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--background);
+        }
+
+        .tabs::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .tabs::-webkit-scrollbar-track {
+            background: var(--background);
+        }
+
+        .tabs::-webkit-scrollbar-thumb {
+            background-color: var(--primary);
+            border-radius: 10px;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            color: var(--muted-foreground);
+            font-weight: 500;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tab:hover {
+            color: var(--foreground);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--card);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--muted-foreground);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--foreground);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--card);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transform: translateY(150%);
+            transition: transform 0.3s;
+        }
+
+        .notification.active {
+            transform: translateY(0);
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notification-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .notification-message {
+            color: var(--foreground);
+        }
+
+        /* Filter system */
+        .filter-container {
+            margin-bottom: 2rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .filter-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 0.25rem;
+            color: var(--muted-foreground);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-button:hover {
+            background-color: rgba(255, 0, 51, 0.1);
+            color: var(--primary);
+        }
+
+        .filter-button.active {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+        }
+        
+        .search-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            background-color: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            color: var(--foreground);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-foreground);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                position: relative;
+            }
+            
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--background);
+                border-bottom: 1px solid var(--border);
+                padding: 1rem;
+                z-index: 100;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .mobile-menu-button {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .executor-section {
+                flex-direction: column;
+            }
+            
+            .executor-image {
+                order: -1;
+            }
+
+            .script-details-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .script-details-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .script-details-actions .btn {
+                width: 100%;
+            }
+        }
+        
+        /* Animation */
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 5px rgba(255, 0, 51, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 0, 51, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 5px rgba(255, 0, 51, 0.5);
+            }
+        }
+        
+        .glow {
+            animation: glow 2s infinite;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Dark mode toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            color: var(--foreground);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 99;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Game image styles */
+        .game-image {
+            width: 100%;
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .game-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+        }
+
+        /* New features */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background-color: var(--card);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 0, 51, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-description {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+        }
+
+        /* Credits */
+        .credits {
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .credits a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .credits a:hover {
+            opacity: 0.8;
+        }
+
+        /* Accessibility improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 120px;
+            background-color: var(--card);
+            color: var(--foreground);
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 1px solid var(--border);
+            font-size: 0.75rem;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 6rem;
+            right: 1.5rem;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            color: var(--foreground);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 99;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Intro Sequence */
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .intro-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .intro-content {
+            text-align: center;
+            max-width: 90%;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: transform 1s ease, opacity 1s ease;
+        }
+
+        .intro-overlay.active .intro-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .intro-logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 15px rgba(255, 0, 51, 0.7));
+            animation: pulse 2s infinite;
+        }
+
+        .intro-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ff0033, #ff3366);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 0, 51, 0.3);
+        }
+
+        .intro-subtitle {
+            font-size: 1.5rem;
+            color: var(--foreground);
+            margin-bottom: 2rem;
+        }
+
+        .intro-executor {
+            width: 80%;
+            max-width: 600px;
+            height: auto;
+            margin: 2rem 0;
+            border-radius: 0.75rem;
+            box-shadow: 0 0 30px rgba(255, 0, 51, 0.3);
+            border: 2px solid var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .intro-executor:hover {
+            transform: scale(1.02);
+        }
+
+        .intro-discord {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #5865F2;
+            color: white;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
+        }
+
+        .intro-discord:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(88, 101, 242, 0.7);
+        }
+
+        .intro-discord-icon {
+            font-size: 1.25rem;
+        }
+
+        .intro-skip {
+            position: absolute;
+            bottom: 2rem;
+            color: var(--muted-foreground);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
+        }
+
+        .intro-skip:hover {
+            color: var(--foreground);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .intro-title {
+                font-size: 2rem;
+            }
+            
+            .intro-subtitle {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Intro Sequence -->
+    <div class="intro-overlay" id="intro-overlay">
+        <div class="intro-content">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Frame_1_49-CQoKTZfBgQERQIrNqjQdfBwir9rPs7.png" alt="Sapphire Logo" class="intro-logo">
+            <h1 class="intro-title">Sapphire Coming Soon</h1>
+            <p class="intro-subtitle">The Ultimate Roblox Script Executor</p>
+            
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Frame_1_49-CQoKTZfBgQERQIrNqjQdfBwir9rPs7.png" alt="Sapphire Executor" class="intro-executor">
+            
+            <a href="https://discord.gg/c7JwD8uK" target="_blank" rel="noopener noreferrer" class="intro-discord">
+                <span class="intro-discord-icon">D</span>
+                Join Our Discord
+            </a>
+        </div>
+        <button class="intro-skip" id="intro-skip">Skip Intro</button>
+    </div>
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo" onclick="showPage('home')">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Frame_1_49-CQoKTZfBgQERQIrNqjQdfBwir9rPs7.png" alt="Sapphire Logo">
+                Sapphire Oficial
+            </a>
+            <button class="mobile-menu-button" aria-label="Toggle menu">☰</button>
+            <nav>
+                <ul>
+                    <li><a onclick="showPage('home')">Home</a></li>
+                    <li><a onclick="showPage('scripts')">Scripts</a></li>
+                    <li><a onclick="showPage('executor')">Executor</a></li>
+                    <li><a onclick="showPage('keys')">Keys</a></li>
+                    <li><a onclick="showPage('faq')">FAQ</a></li>
+                    <li><a href="https://discord.gg/c7JwD8uK" target="_blank" rel="noopener noreferrer">Discord</a></li>
+                    <li><a onclick="showPage('login')">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page active">
+        <section class="hero">
+            <div class="container">
+                <h1>Elevate Your Roblox Experience</h1>
+                <p>Access premium Roblox scripts and our advanced executor for the ultimate gaming advantage. Join thousands of satisfied users today!</p>
+                <a href="#" class="btn glow" onclick="showPage('executor')">Get Started</a>
+                <a href="https://discord.gg/c7JwD8uK" class="btn btn-outline" style="margin-left: 1rem;" target="_blank" rel="noopener noreferrer">Join Discord</a>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Premium Scripts</h2>
+                <div class="scripts">
+                    <div class="script-card" onclick="showScriptDetails('phantom-forces')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/e7c1f47f1867a999e3fb7e0b77ad6ee8/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">Phantom Forces</h3>
+                            <p class="script-description">Advanced aimbot and ESP for Phantom Forces with customizable settings.</p>
+                            <div>
+                                <span class="badge">Popular</span>
+                                <span class="badge">FPS</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="script-card" onclick="showScriptDetails('blox-fruits')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/5e8b8a96a78d3e0c69e89b47d27989b5/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">Blox Fruits</h3>
+                            <p class="script-description">Auto-farm, teleport, and item finder for Blox Fruits.</p>
+                            <div>
+                                <span class="badge">New</span>
+                                <span class="badge">RPG</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="script-card" onclick="showScriptDetails('adopt-me')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/5d7c25e9c8b0dfa3c5485cf1fcc5436b/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">Adopt Me</h3>
+                            <p class="script-description">Pet simulator and trading helper for Adopt Me.</p>
+                            <div>
+                                <span class="badge">Simulation</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="script-card" onclick="showScriptDetails('arsenal')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/cad3a1065a2c7c2feb321c916d5e7289/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">Arsenal</h3>
+                            <p class="script-description">Complete Arsenal script with silent aim and wallhack.</p>
+                            <div>
+                                <span class="badge">FPS</span>
+                                <span class="badge">Popular</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background-color: var(--secondary);">
+            <div class="container">
+                <h2 class="section-title">Advanced Executor</h2>
+                <div class="executor-section">
+                    <div class="executor-content">
+                        <h3 class="executor-title">Powerful & Undetectable</h3>
+                        <p>Our advanced executor allows you to run any script with maximum performance and security. Stay undetected while enjoying all the features you need.</p>
+                        <ul class="features" style="margin-top: 1.5rem;">
+                            <li>Level 7 Script Execution</li>
+                            <li>Built-in Script Hub</li>
+                            <li>Auto-Update System</li>
+                            <li>Anti-Detection Technology</li>
+                            <li>24/7 Support</li>
+                            <li>Custom UI Themes</li>
+                            <li>Script Debugger</li>
+                            <li>Multi-Instance Support</li>
+                            <li>Script Analyzer</li>
+                            <li>Performance Optimizer</li>
+                        </ul>
+                        <a href="#" class="btn" style="margin-top: 1.5rem;" onclick="showPage('executor')">Download Now</a>
+                    </div>
+                    <div class="executor-image">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Frame_1_49-CQoKTZfBgQERQIrNqjQdfBwir9rPs7.png" alt="Executor Interface" style="width: 100%; height: auto; background-color: #1a1a1a; padding: 2rem;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Pricing Plans</h2>
+                <div class="pricing">
+                    <div class="price-card">
+                        <h3>Basic Key</h3>
+                        <div class="price">R$15</div>
+                        <ul class="features">
+                            <li>1 Week Access</li>
+                            <li>Basic Scripts Library</li>
+                            <li>Standard Support</li>
+                            <li>Single Device</li>
+                            <li>Basic Script Updates</li>
+                        </ul>
+                        <a href="#" class="btn" onclick="showPage('keys')">Purchase Now</a>
+                        <div class="payment-methods">
+                            <div class="payment-method" onclick="showPixPayment('Basic Key', 15)">Pix</div>
+                            <div class="payment-method" onclick="showPage('keys')">Card</div>
+                            <div class="payment-method" onclick="showPage('keys')">Crypto</div>
+                        </div>
+                    </div>
+                    
+                    <div class="price-card popular">
+                        <h3>Premium Key</h3>
+                        <div class="price">R$30</div>
+                        <ul class="features">
+                            <li>1 Month Access</li>
+                            <li>Full Scripts Library</li>
+                            <li>Priority Support</li>
+                            <li>Multiple Devices</li>
+                            <li>Early Access to New Scripts</li>
+                            <li>Script Request Priority</li>
+                            <li>Premium Discord Role</li>
+                        </ul>
+                        <a href="#" class="btn glow" onclick="showPage('keys')">Purchase Now</a>
+                        <div class="payment-methods">
+                            <div class="payment-method" onclick="showPixPayment('Premium Key', 30)">Pix</div>
+                            <div class="payment-method" onclick="showPage('keys')">Card</div>
+                            <div class="payment-method" onclick="showPage('keys')">Crypto</div>
+                        </div>
+                    </div>
+                    
+                    <div class="price-card">
+                        <h3>Lifetime Key</h3>
+                        <div class="price">R$75</div>
+                        <ul class="features">
+                            <li>Unlimited Access</li>
+                            <li>Full Scripts Library</li>
+                            <li>VIP Support</li>
+                            <li>Unlimited Devices</li>
+                            <li>Early Access to New Scripts</li>
+                            <li>Custom Script Requests</li>
+                            <li>VIP Discord Role</li>
+                            <li>Beta Features Access</li>
+                            <li>Script Development Tools</li>
+                        </ul>
+                        <a href="#" class="btn" onclick="showPage('keys')">Purchase Now</a>
+                        <div class="payment-methods">
+                            <div class="payment-method" onclick="showPixPayment('Lifetime Key', 75)">Pix</div>
+                            <div class="payment-method" onclick="showPage('keys')">Card</div>
+                            <div class="payment-method" onclick="showPage('keys')">Crypto</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background-color: var(--secondary);">
+            <div class="container">
+                <h2 class="section-title">Why Choose Us</h2>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number">10k+</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Premium Scripts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">99%</div>
+                        <div class="stat-label">Satisfaction Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support</div>
+                    </div>
+                </div>
+                
+                <div class="testimonials">
+                    <div class="testimonial-card">
+                        <p class="testimonial-content">Sapphire has completely changed my Roblox experience. The scripts are high quality and the executor never crashes. Worth every penny!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background-color: #444; display: flex; align-items: center; justify-content: center; color: #666;">AM</div>
+                            <div class="testimonial-info">
+                                <h4>Alex M.</h4>
+                                <p>Premium User</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <p class="testimonial-content">I've tried many script executors but Sapphire is by far the best. The support team is amazing and always helps when I have questions.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background-color: #444; display: flex; align-items: center; justify-content: center; color: #666;">MS</div>
+                            <div class="testimonial-info">
+                                <h4>Maria S.</h4>
+                                <p>Lifetime User</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <p class="testimonial-content">The script library is constantly updated with new games. I love how easy it is to use and the UI is very clean and intuitive.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background-color: #444; display: flex; align-items: center; justify-content: center; color: #666;">JD</div>
+                            <div class="testimonial-info">
+                                <h4>João D.</h4>
+                                <p>Lifetime User</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-section">
+                    <div class="faq-item">
+                        <div class="faq-question">How do I install the executor?</div>
+                        <div class="faq-answer">
+                            After purchasing a key, download the executor from our website or Discord server. Run the installer and follow the on-screen instructions. Once installed, launch the application, enter your key, and you're ready to go!
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Is the executor safe to use?</div>
+                        <div class="faq-answer">
+                            Yes, our executor is completely safe to use. We use advanced anti-detection technology to ensure your Roblox account remains secure. However, as with any third-party software, we recommend using an alt account for extra security.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">How do I get support if I have issues?</div>
+                        <div class="faq-answer">
+                            We offer 24/7 support through our Discord server. Join our community and open a support ticket, and our team will assist you as soon as possible. Premium and Lifetime users get priority support.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Can I use my key on multiple devices?</div>
+                        <div class="faq-answer">
+                            Basic keys are limited to a single device. Premium keys can be used on up to 3 devices, while Lifetime keys have no device limitations. If you need to reset your device count, please contact our support team.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">How do I pay with Pix?</div>
+                        <div class="faq-answer">
+                            To pay with Pix, select your desired key and choose the Pix payment option. You'll be shown a QR code and a Pix key. Scan the code with your banking app or copy the key, complete the payment, and send us the receipt through Discord or email. Your key will be activated within minutes.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2 class="cta-title">Ready to Dominate?</h2>
+                    <p class="cta-description">Join thousands of satisfied users and take your Roblox experience to the next level today!</p>
+                    <a href="#" class="btn glow" onclick="showPage('executor')">Get Started Now</a>
+                    <a href="https://discord.gg/c7JwD8uK" class="btn btn-outline" style="margin-left: 1rem;" target="_blank" rel="noopener noreferrer">Join Our Discord</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts Page -->
+    <div id="scripts-page" class="page">
+        <section class="section">
+            <div class="container">
+                <h1 class="section-title">Script Library</h1>
+                <p class="text-center" style="margin-bottom: 3rem; color: var(--muted-foreground);">Browse our collection of premium Roblox scripts</p>
+                
+                <div class="filter-container">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Search scripts..." id="script-search">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-button active" data-category="all">All</button>
+                        <button class="filter-button" data-category="fps">FPS</button>
+                        <button class="filter-button" data-category="rpg">RPG</button>
+                        <button class="filter-button" data-category="simulation">Simulation</button>
+                        <button class="filter-button" data-category="popular">Popular</button>
+                        <button class="filter-button" data-category="new">New</button>
+                        <button class="filter-button" data-category="adventure">Adventure</button>
+                        <button class="filter-button" data-category="tycoon">Tycoon</button>
+                    </div>
+                </div>
+                
+                <div class="scripts" id="scripts-container">
+                    <div class="script-card" data-categories="fps,popular" onclick="showScriptDetails('phantom-forces')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/e7c1f47f1867a999e3fb7e0b77ad6ee8/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">Phantom Forces</h3>
+                            <p class="script-description">Advanced aimbot and ESP for Phantom Forces with customizable settings.</p>
+                            <div>
+                                <span class="badge">Popular</span>
+                                <span class="badge">FPS</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="script-card" data-categories="rpg,new" onclick="showScriptDetails('blox-fruits')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/5e8b8a96a78d3e0c69e89b47d27989b5/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">Blox Fruits</h3>
+                            <p class="script-description">Auto-farm, teleport, and item finder for Blox Fruits.</p>
+                            <div>
+                                <span class="badge">New</span>
+                                <span class="badge">RPG</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="script-card" data-categories="simulation" onclick="showScriptDetails('adopt-me')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/5d7c25e9c8b0dfa3c5485cf1fcc5436b/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">Adopt Me</h3>
+                            <p class="script-description">Pet simulator and trading helper for Adopt Me.</p>
+                            <div>
+                                <span class="badge">Simulation</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="script-card" data-categories="fps,popular" onclick="showScriptDetails('arsenal')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/cad3a1065a2c7c2feb321c916d5e7289/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">Arsenal</h3>
+                            <p class="script-description">Complete Arsenal script with silent aim and wallhack.</p>
+                            <div>
+                                <span class="badge">FPS</span>
+                                <span class="badge">Popular</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="script-card" data-categories="rpg" onclick="showScriptDetails('pet-simulator')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/3e3c8d2e9e6c2c707e6bd9e9c95b9e98/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">Pet Simulator X</h3>
+                            <p class="script-description">Auto-farm, auto-hatch, and teleport script for Pet Simulator X.</p>
+                            <div>
+                                <span class="badge">RPG</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="script-card" data-categories="fps,new" onclick="showScriptDetails('bad-business')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/a9d6a5a89c7a6b83d9f2b4a410c3c8df/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">Bad Business</h3>
+                            <p class="script-description">Silent aim, ESP, and weapon mods for Bad Business.</p>
+                            <div>
+                                <span class="badge">New</span>
+                                <span class="badge">FPS</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="script-card" data-categories="simulation" onclick="showScriptDetails('brookhaven')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/e5836c0a0c8a9e14c75e74658b116f84/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">Brookhaven</h3>
+                            <p class="script-description">Admin commands and teleport for Brookhaven RP.</p>
+                            <div>
+                                <span class="badge">Simulation</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="script-card" data-categories="rpg,popular" onclick="showScriptDetails('king-legacy')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/f5b1047a3e9c4b852a44826e6b421546/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">King Legacy</h3>
+                            <p class="script-description">Auto-farm, auto-quest, and teleport for King Legacy.</p>
+                            <div>
+                                <span class="badge">Popular</span>
+                                <span class="badge">RPG</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="script-card" data-categories="adventure,new" onclick="showScriptDetails('doors')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/e6e1e61bd6d9c71a69c6f8c58b3883d7/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">Doors</h3>
+                            <p class="script-description">ESP, entity detection, and auto-complete for Doors.</p>
+                            <div>
+                                <span class="badge">New</span>
+                                <span class="badge">Adventure</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="script-card" data-categories="tycoon" onclick="showScriptDetails('lumber-tycoon')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/510d7c3f7e6e9ec0c2163e243e68e7c1/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">Lumber Tycoon 2</h3>
+                            <p class="script-description">Auto-farm, teleport, and item duplication for Lumber Tycoon 2.</p>
+                            <div>
+                                <span class="badge">Tycoon</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="script-card" data-categories="adventure,popular" onclick="showScriptDetails('jailbreak')">
+                        <div class="game-image" style="background-image: url('https://tr.rbxcdn.com/1e1b3e4f504e8c4a8e6d6c1e9fce7d1a/768/432/Image/Png');">
+                        </div>
+                        <div class="script-content">
+                            <h3 class="script-title">Jailbreak</h3>
+                            <p class="script-description">Auto-rob, teleport, and vehicle mods for Jailbreak.</p>
+                            <div>
+                                <span class="badge">Popular</span>
+                                <span class="badge">Adventure</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Script Details Page -->
+    <div id="script-details-page" class="page">
+        <section class="section">
+            <div class="container">
+                <button class="btn btn-outline" style="margin-bottom: 2rem;" onclick="showPage('scripts')">← Back to Scripts</button>
+                
+                <div class="script-details">
+                    <div class="script-details-header">
+                        <div>
+                            <h1 class="script-details-title" id="script-title">Script Title</h1>
+                            <div class="script-details-badges" id="script-badges">
+                                <!-- Badges will be added dynamically -->
+                            </div>
+                        </div>
+                        <div class="script-details-actions">
+                            <button class="btn" onclick="copyScript()">Copy Script</button>
+                            <button class="btn btn-outline" onclick="downloadScript()">Download Script</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tabs">
+                        <div class="tab active" data-tab="script">Script</div>
+                        <div class="tab" data-tab="description">Description</div>
+                        <div class="tab" data-tab="instructions">Instructions</div>
+                        <div class="tab" data-tab="changelog">Changelog</div>
+                        <div class="tab" data-tab="comments">Comments</div>
+                    </div>
+                    
+                    <div class="tab-content active" data-tab-content="script">
+                        <div class="script-code">
+                            <pre id="script-code">-- Script code will be loaded here</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" data-tab-content="description">
+                        <div class="script-details-content">
+                            <p class="script-details-description" id="script-description">
+                                <!-- Description will be added dynamically -->
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" data-tab-content="instructions">
+                        <div class="script-details-content">
+                            <h3 style="margin-bottom: 1rem; color: var(--foreground);">How to Use</h3>
+                            <ol style="color: var(--muted-foreground); padding-left: 1.5rem;">
+                                <li>Copy the script using the Copy button above</li>
+                                <li>Open your Roblox executor</li>
+                                <li>Paste the script into the executor</li>
+                                <li>Join the game</li>
+                                <li>Execute the script</li>
+                                <li>Enjoy the features!</li>
+                            </ol>
+                            <p style="margin-top: 1.5rem; color: var(--primary);">Note: This script requires a premium key to use. Purchase a key from our website or Discord server.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" data-tab-content="changelog">
+                        <div class="script-details-content">
+                            <h3 style="margin-bottom: 1rem; color: var(--foreground);">Changelog</h3>
+                            <div style="color: var(--muted-foreground);">
+                                <div style="margin-bottom: 1.5rem;">
+                                    <h4 style="color: var(--foreground); margin-bottom: 0.5rem;">v2.1.0 - April 10, 2023</h4>
+                                    <ul style="padding-left: 1.5rem;">
+                                        <li>Added new features</li>
+                                        <li>Fixed bugs with ESP</li>
+                                        <li>Improved performance</li>
+                                        <li>Updated for latest game version</li>
+                                    </ul>
+                                </div>
+                                <div style="margin-bottom: 1.5rem;">
+                                    <h4 style="color: var(--foreground); margin-bottom: 0.5rem;">v2.0.0 - March 15, 2023</h4>
+                                    <ul style="padding-left: 1.5rem;">
+                                        <li>Complete rewrite of the script</li>
+                                        <li>Added new UI</li>
+                                        <li>Added more customization options</li>
+                                        <li>Improved stability</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 style="color: var(--foreground); margin-bottom: 0.5rem;">v1.5.0 - February 1, 2023</h4>
+                                    <ul style="padding-left: 1.5rem;">
+                                        <li>Initial release</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" data-tab-content="comments">
+                        <div class="script-details-content">
+                            <h3 style="margin-bottom: 1rem; color: var(--foreground);">User Comments</h3>
+                            <div style="margin-bottom: 2rem;">
+                                <div style="background-color: var(--secondary); border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                                        <div style="width: 32px; height: 32px; border-radius: 50%; background-color: var(--muted); display: flex; align-items: center; justify-content: center; margin-right: 0.5rem;">JD</div>
+                                        <div>
+                                            <div style="font-weight: 600;">John Doe</div>
+                                            <div style="font-size: 0.75rem; color: var(--muted-foreground);">2 days ago</div>
+                                        </div>
+                                    </div>
+                                    <p style="color: var(--muted-foreground);">This script works perfectly! Thanks for the update.</p>
+                                </div>
+                                <div style="background-color: var(--secondary); border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                                        <div style="width: 32px; height: 32px; border-radius: 50%; background-color: var(--muted); display: flex; align-items: center; justify-content: center; margin-right: 0.5rem;">AS</div>
+                                        <div>
+                                            <div style="font-weight: 600;">Alice Smith</div>
+                                            <div style="font-size: 0.75rem; color: var(--muted-foreground);">1 week ago</div>
+                                        </div>
+                                    </div>
+                                    <p style="color: var(--muted-foreground);">Great script, but I'm having issues with the ESP. Can someone help?</p>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 1rem; color: var(--foreground);">Add a Comment</h4>
+                                <textarea class="form-input" placeholder="Write your comment here..." style="min-height: 100px; margin-bottom: 1rem;"></textarea>
+                                <button class="btn">Submit Comment</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Executor Page -->
+    <div id="executor-page" class="page">
+        <section class="section">
+            <div class="container">
+                <h1 class="section-title">Sapphire Executor</h1>
+                <p class="text-center" style="margin-bottom: 3rem; color: var(--muted-foreground);">The most powerful and reliable Roblox executor</p>
+                
+                <div class="executor-section">
+                    <div class="executor-content">
+                        <h3 class="executor-title">Powerful & Undetectable</h3>
+                        <p>Our advanced executor allows you to run any script with maximum performance and security. Stay undetected while enjoying all the features you need.</p>
+                        <ul class="features" style="margin-top: 1.5rem;">
+                            <li>Level 7 Script Execution</li>
+                            <li>Built-in Script Hub</li>
+                            <li>Auto-Update System</li>
+                            <li>Anti-Detection Technology</li>
+                            <li>24/7 Support</li>
+                            <li>Regular Updates</li>
+                            <li>User-Friendly Interface</li>
+                            <li>Script Saving & Loading</li>
+                            <li>Custom UI Themes</li>
+                            <li>Script Debugger</li>
+                            <li>Multi-Instance Support</li>
+                            <li>Script Analyzer</li>
+                            <li>Performance Optimizer</li>
+                        </ul>
+                        <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                            <button class="btn glow" onclick="downloadExecutor()">Download Now</button>
+                            <button class="btn btn-outline" onclick="showPage('keys')">Get a Key</button>
+                        </div>
+                    </div>
+                    <div class="executor-image">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Frame_1_49-CQoKTZfBgQERQIrNqjQdfBwir9rPs7.png" alt="Executor Interface" style="width: 100%; height: auto; background-color: #1a1a1a; padding: 2rem;">
+                    </div>
+                </div>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3 class="feature-title">Anti-Detection</h3>
+                        <p class="feature-description">Our advanced anti-detection system keeps your account safe while using scripts.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <h3 class="feature-title">Fast Execution</h3>
+                        <p class="feature-description">Execute scripts instantly with our optimized execution engine.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📚</div>
+                        <h3 class="feature-title">Script Library</h3>
+                        <p class="feature-description">Access hundreds of scripts for popular games directly from our executor.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <h3 class="feature-title">Auto-Updates</h3>
+                        <p class="feature-description">Always stay up-to-date with automatic updates for both the executor and scripts.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3 class="feature-title">Script Analyzer</h3>
+                        <p class="feature-description">Analyze scripts for potential issues before execution to prevent crashes.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚙️</div>
+                        <h3 class="feature-title">Performance Optimizer</h3>
+                        <p class="feature-description">Optimize scripts for better performance and reduced lag.</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 4rem;">
+                    <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--foreground); text-align: center;">System Requirements</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                        <div style="background-color: var(--card); border-radius: 0.75rem; padding: 2rem; border: 1px solid var(--border);">
+                            <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--foreground);">Minimum Requirements</h3>
+                            <ul style="color: var(--muted-foreground);">
+                                <li style="margin-bottom: 0.5rem;">Windows 10 (64-bit)</li>
+                                <li style="margin-bottom: 0.5rem;">4GB RAM</li>
+                                <li style="margin-bottom: 0.5rem;">Intel Core i3 or equivalent</li>
+                                <li style="margin-bottom: 0.5rem;">500MB free disk space</li>
+                                <li style="margin-bottom: 0.5rem;">DirectX 11</li>
+                                <li style="margin-bottom: 0.5rem;">.NET Framework 4.8</li>
+                            </ul>
+                        </div>
+                        <div style="background-color: var(--card); border-radius: 0.75rem; padding: 2rem; border: 1px solid var(--border);">
+                            <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--foreground);">Recommended Requirements</h3>
+                            <ul style="color: var(--muted-foreground);">
+                                <li style="margin-bottom: 0.5rem;">Windows 10/11 (64-bit)</li>
+                                <li style="margin-bottom: 0.5rem;">8GB RAM</li>
+                                <li style="margin-bottom: 0.5rem;">Intel Core i5 or equivalent</li>
+                                <li style="margin-bottom: 0.5rem;">1GB free disk space</li>
+                                <li style="margin-bottom: 0.5rem;">DirectX 12</li>
+                                <li style="margin-bottom: 0.5rem;">.NET Framework 4.8</li>
+                                <li style="margin-bottom: 0.5rem;">SSD Storage</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="background-color: rgba(255, 0, 51, 0.1); border-radius: 0.75rem; padding: 1.5rem; margin-top: 2rem; border: 1px solid rgba(255, 0, 51, 0.2);">
+                        <p style="color: var(--muted-foreground);">
+                            <span style="color: var(--primary); font-weight: 600;">Note:</span> Sapphire Executor requires administrator privileges to function properly. Make sure to run the application as administrator.
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 4rem; text-align: center;">
+                    <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--foreground);">Ready to Get Started?</h2>
+                    <p style="color: var(--muted-foreground); max-width: 600px; margin: 0 auto 2rem;">
+                        Download Sapphire Executor today and experience the difference. Purchase a key to unlock all premium features.
+                    </p>
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button class="btn glow" onclick="downloadExecutor()">Download Now</button>
+                        <button class="btn btn-outline" onclick="showPage('keys')">Get a Key</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Keys Page -->
+    <div id="keys-page" class="page">
+        <section class="section">
+            <div class="container">
+                <h1 class="section-title">Purchase Access Keys</h1>
+                <p class="text-center" style="margin-bottom: 3rem; color: var(--muted-foreground);">
+                    Unlock the full potential of Sapphire Oficial with our premium keys. Choose the plan that works best for you.
+                </p>
+                
+                <div class="tabs">
+                    <div class="tab active" data-tab="keys">Key Options</div>
+                    <div class="tab" data-tab="payment">Payment Methods</div>
+                    <div class="tab" data-tab="redeem">Redeem Key</div>
+                </div>
+                
+                <div class="tab-content active" data-tab-content="keys">
+                    <div class="pricing">
+                        <div class="price-card">
+                            <h3>Basic Key</h3>
+                            <div class="price">R$15</div>
+                            <ul class="features">
+                                <li>1 Week Access</li>
+                                <li>Basic Scripts Library</li>
+                                <li>Standard Support</li>
+                                <li>Single Device</li>
+                                <li>Basic Script Updates</li>
+                            </ul>
+                            <button class="btn" onclick="window.open('https://discord.gg/c7JwD8uK', '_blank')">Purchase on Discord</button>
+                            <button class="btn btn-outline" style="margin-top: 1rem;" onclick="showPixPayment('Basic Key', 15)">Pay with Pix</button>
+                        </div>
+                        
+                        <div class="price-card popular">
+                            <h3>Premium Key</h3>
+                            <div class="price">R$30</div>
+                            <ul class="features">
+                                <li>1 Month Access</li>
+                                <li>Full Scripts Library</li>
+                                <li>Priority Support</li>
+                                <li>Multiple Devices</li>
+                                <li>Early Access to New Scripts</li>
+                                <li>Script Request Priority</li>
+                                <li>Premium Discord Role</li>
+                            </ul>
+                            <button class="btn glow" onclick="window.open('https://discord.gg/c7JwD8uK', '_blank')">Purchase on Discord</button>
+                            <button class="btn btn-outline" style="margin-top: 1rem;" onclick="showPixPayment('Premium Key', 30)">Pay with Pix</button>
+                        </div>
+                        
+                        <div class="price-card">
+                            <h3>Lifetime Key</h3>
+                            <div class="price">R$75</div>
+                            <ul class="features">
+                                <li>Unlimited Access</li>
+                                <li>Full Scripts Library</li>
+                                <li>VIP Support</li>
+                                <li>Unlimited Devices</li>
+                                <li>Early Access to New Scripts</li>
+                                <li>Custom Script Requests</li>
+                                <li>VIP Discord Role</li>
+                                <li>Beta Features Access</li>
+                                <li>Script Development Tools</li>
+                            </ul>
+                            <button class="btn" onclick="window.open('https://discord.gg/c7JwD8uK', '_blank')">Purchase on Discord</button>
+                            <button class="btn btn-outline" style="margin-top: 1rem;" onclick="showPixPayment('Lifetime Key', 75)">Pay with Pix</button>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: var(--card); border-radius: 0.75rem; padding: 2rem; margin-top: 3rem; border: 1px solid var(--border);">
+                        <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                            <div style="color: var(--primary); font-size: 1.5rem;">🛡️</div>
+                            <div>
+                                <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--foreground);">Secure Purchase Process</h3>
+                                <p style="color: var(--muted-foreground);">
+                                    All key purchases are processed through our official Discord server. Join our server, contact an administrator, and they will guide you through the secure payment process. We accept various payment methods including cryptocurrency for enhanced privacy.
+                                </p>
+                                <a href="https://discord.gg/c7JwD8uK" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-top: 1rem; color: var(--primary);">Join our Discord server</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" data-tab-content="payment">
+                    <div style="background-color: var(--card); border-radius: 0.75rem; padding: 2rem; border: 1px solid var(--border);">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--foreground);">Payment Methods</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                            <div style="background-color: rgba(0, 0, 0, 0.2); border-radius: 0.5rem; padding: 1.5rem; border: 1px solid var(--border);">
+                                <h4 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--foreground);">Cryptocurrency</h4>
+                                <ul style="color: var(--muted-foreground);">
+                                    <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: var(--primary);">•</span> Bitcoin (BTC)
+                                    </li>
+                                    <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: var(--primary);">•</span> Ethereum (ETH)
+                                    </li>
+                                    <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: var(--primary);">•</span> Tether (USDT)
+                                    </li>
+                                    <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: var(--primary);">•</span> Binance Coin (BNB)
+                                    </li>
+                                    <li style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: var(--primary);">•</span> Pix (Brazil)
+                                    </li>
+                                </ul>
+                            </div>
+                            <div style="background-color: rgba(0, 0, 0, 0.2); border-radius: 0.5rem; padding: 1.5rem; border: 1px solid var(--border);">
+                                <h4 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--foreground);">Other Methods</h4>
+                                <ul style="color: var(--muted-foreground);">
+                                    <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: var(--primary);">•</span> PayPal
+                                    </li>
+                                    <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: var(--primary);">•</span> Credit/Debit Cards
+                                    </li>
+                                    <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: var(--primary);">•</span> Gift Cards
+                                    </li>
+                                    <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: var(--primary);">•</span> Bank Transfer
+                                    </li>
+                                    <li style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: var(--primary);">•</span> Boleto (Brazil)
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div style="background-color: rgba(255, 0, 51, 0.1); border-radius: 0.5rem; padding: 1.5rem; margin-top: 2rem; border: 1px solid rgba(255, 0, 51, 0.2);">
+                            <h4 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--foreground);">How to Pay with Pix</h4>
+                            <ol style="color: var(--muted-foreground); padding-left: 1.5rem;">
+                                <li style="margin-bottom: 0.5rem;">Join our Discord server and open a payment ticket</li>
+                                <li style="margin-bottom: 0.5rem;">Request a Pix payment and specify which key you want to purchase</li>
+                                <li style="margin-bottom: 0.5rem;">Our team will generate a Pix QR code for you</li>
+                                <li style="margin-bottom: 0.5rem;">Scan the QR code with your banking app or copy the Pix key</li>
+                                <li style="margin-bottom: 0.5rem;">Complete the payment in your banking app</li>
+                                <li style="margin-bottom: 0.5rem;">Send the payment receipt to our team</li>
+                                <li>Receive your activation key via Discord direct message</li>
+                            </ol>
+                            <p style="margin-top: 1.5rem; color: var(--muted-foreground);">
+                                <span style="color: var(--primary); font-weight: 600;">Note:</span> Pix payments are processed instantly, allowing you to get your key within minutes after payment confirmation.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" data-tab-content="redeem">
+                    <div style="background-color: var(--card); border-radius: 0.75rem; padding: 2rem; border: 1px solid var(--border); max-width: 600px; margin: 0 auto;">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--foreground); text-align: center;">Redeem Your Key</h3>
+                        <form id="redeem-form">
+                            <div class="form-group">
+                                <label for="key" class="form-label">Enter your key</label>
+                                <input type="text" id="key" class="form-input" placeholder="XXXX-XXXX-XXXX-XXXX" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="form-label">Discord username</label>
+                                <input type="text" id="username" class="form-input" placeholder="username#0000" required>
+                            </div>
+                            <button type="submit" class="btn" style="width: 100%; margin-top: 1.5rem;">Redeem Key</button>
+                        </form>
+                        <p style="margin-top: 1.5rem; color: var(--muted-foreground); text-align: center;">
+                            If you have any issues redeeming your key, please contact our support team on Discord.
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 4rem; text-align: center;">
+                    <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--foreground);">Why Choose Sapphire Oficial?</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                        <div style="background-color: var(--card); border-radius: 0.75rem; padding: 2rem; border: 1px solid var(--border); text-align: center;">
+                            <div style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary);">⚡</div>
+                            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--foreground);">Powerful Executor</h3>
+                            <p style="color: var(--muted-foreground);">
+                                Our executor is designed for maximum performance and compatibility with a wide range of scripts.
+                            </p>
+                        </div>
+                        <div style="background-color: var(--card); border-radius: 0.75rem; padding: 2rem; border: 1px solid var(--border); text-align: center;">
+                            <div style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary);">🛡️</div>
+                            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--foreground);">Secure & Undetected</h3>
+                            <p style="color: var(--muted-foreground);">
+                                We prioritize security to keep your account safe while using our tools.
+                            </p>
+                        </div>
+                        <div style="background-color: var(--card); border-radius: 0.75rem; padding: 2rem; border: 1px solid var(--border); text-align: center;">
+                            <div style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary);">⭐</div>
+                            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--foreground);">Premium Scripts</h3>
+                            <p style="color: var(--muted-foreground);">
+                                Access our extensive library of high-quality scripts for various popular games.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FAQ Page -->
+    <div id="faq-page" class="page">
+        <section class="section">
+            <div class="container">
+                <h1 class="section-title">Frequently Asked Questions</h1>
+                <p class="text-center" style="margin-bottom: 3rem; color: var(--muted-foreground);">
+                    Find answers to common questions about Sapphire Oficial
+                </p>
+                
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div class="faq-section">
+                        <div class="faq-item">
+                            <div class="faq-question">How do I install the executor?</div>
+                            <div class="faq-answer">
+                                After purchasing a key, download the executor from our website or Discord server. Run the installer and follow the on-screen instructions. Once installed, launch the application, enter your key, and you're ready to go!
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Is the executor safe to use?</div>
+                            <div class="faq-answer">
+                                Yes, our executor is completely safe to use. We use advanced anti-detection technology to ensure your Roblox account remains secure. However, as with any third-party software, we recommend using an alt account for extra security.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">How do I get support if I have issues?</div>
+                            <div class="faq-answer">
+                                We offer 24/7 support through our Discord server. Join our community and open a support ticket, and our team will assist you as soon as possible. Premium and Lifetime users get priority support.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Can I use my key on multiple devices?</div>
+                            <div class="faq-answer">
+                                Basic keys are limited to a single device. Premium keys can be used on up to 3 devices, while Lifetime keys have no device limitations. If you need to reset your device count, please contact our support team.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">How do I pay with Pix?</div>
+                            <div class="faq-answer">
+                                To pay with Pix, select your desired key and choose the Pix payment option. You'll be shown a QR code and a Pix key. Scan the code with your banking app or copy the key, complete the payment, and send us the receipt through Discord or email. Your key will be activated within minutes.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Is using scripts against Roblox Terms of Service?</div>
+                            <div class="faq-answer">
+                                We do not provide answers regarding the legality or permissibility of using scripts in Roblox. Users should familiarize themselves with Roblox's Terms of Service and make their own informed decisions.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Will I get banned for using these scripts?</div>
+                            <div class="faq-answer">
+                                We do not provide information about potential consequences of using scripts. Each user is responsible for understanding the risks associated with third-party software and scripts.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Why isn't a specific script working?</div>
+                            <div class="faq-answer">
+                                We do not provide troubleshooting for script execution issues. Scripts may become outdated after game updates, or may be designed for specific game versions. If you're having issues, please check our Discord server for updated scripts or alternatives.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Do you offer custom scripts?</div>
+                            <div class="faq-answer">
+                                We do not respond to requests for custom scripts. Our library contains only pre-made scripts that are available to all users. However, Lifetime key holders may have access to some custom script options.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">How often are scripts updated?</div>
+                            <div class="faq-answer">
+                                We do not provide specific schedules for script updates. Scripts are maintained on a best-effort basis and may be updated when game changes require modifications. Premium and Lifetime users get access to updates first.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Can I request a refund?</div>
+                            <div class="faq-answer">
+                                Refund policies vary depending on the payment method and circumstances. Please contact our support team on Discord to discuss refund options. Generally, refunds are only provided if the product is not working as advertised.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">How do I update my executor?</div>
+                            <div class="faq-answer">
+                                The executor automatically checks for updates when launched. If an update is available, you'll be prompted to install it. You can also manually check for updates in the settings menu.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: var(--card); border-radius: 0.75rem; padding: 2rem; margin-top: 3rem; border: 1px solid var(--border);">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--foreground);">Still Have Questions?</h3>
+                        <p style="color: var(--muted-foreground); margin-bottom: 1.5rem;">
+                            If you couldn't find the answer to your question in our FAQ section, please join our Discord server for additional support.
+                        </p>
+                        <button class="btn" onclick="window.open('https://discord.gg/c7JwD8uK', '_blank')">Join Our Discord</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login-page" class="page">
+        <section class="section" style="display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 64px);">
+            <div class="container" style="max-width: 400px;">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <a href="#" class="logo" onclick="showPage('home')" style="justify-content: center;">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Frame_1_49-CQoKTZfBgQERQIrNqjQdfBwir9rPs7.png" alt="Sapphire Logo">
+                        Sapphire Oficial
+                    </a>
+                </div>
+                
+                <div class="login-form">
+                    <h2 class="form-title">Login to Your Account</h2>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" class="form-input" placeholder="name@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" class="form-input" required>
+                        </div>
+                        <div class="form-footer">
+                            <div>
+                                <input type="checkbox" id="remember">
+                                <label for="remember" style="color: var(--muted-foreground); font-size: 0.875rem;">Remember me</label>
+                            </div>
+                            <a href="#" onclick="showPage('forgot-password')">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%; margin-top: 1.5rem;">Login</button>
+                    </form>
+                    
+                    <div class="social-login">
+                        <div class="social-login-title">Or continue with</div>
+                        <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+                            <button class="btn btn-outline" style="flex: 1;">Google</button>
+                            <button class="btn btn-outline" style="flex: 1;">Discord</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 1.5rem; color: var(--muted-foreground); font-size: 0.875rem;">
+                    Don't have an account? <a href="#" onclick="showPage('register')" style="color: var(--primary);">Register</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Register Page -->
+    <div id="register-page" class="page">
+        <section class="section" style="display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 64px);">
+            <div class="container" style="max-width: 400px;">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <a href="#" class="logo" onclick="showPage('home')" style="justify-content: center;">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Frame_1_49-CQoKTZfBgQERQIrNqjQdfBwir9rPs7.png" alt="Sapphire Logo">
+                        Sapphire Oficial
+                    </a>
+                </div>
+                
+                <div class="login-form">
+                    <h2 class="form-title">Create an Account</h2>
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label for="register-username" class="form-label">Username</label>
+                            <input type="text" id="register-username" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email" class="form-label">Email</label>
+                            <input type="email" id="register-email" class="form-input" placeholder="name@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password" class="form-label">Password</label>
+                            <input type="password" id="register-password" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-confirm-password" class="form-label">Confirm Password</label>
+                            <input type="password" id="register-confirm-password" class="form-input" required>
+                        </div>
+                        <div style="margin-top: 1.5rem;">
+                            <input type="checkbox" id="terms" required>
+                            <label for="terms" style="color: var(--muted-foreground); font-size: 0.875rem;">
+                                I agree to the <a href="#" style="color: var(--primary);">Terms of Service</a> and <a href="#" style="color: var(--primary);">Privacy Policy</a>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%; margin-top: 1.5rem;">Register</button>
+                    </form>
+                    
+                    <div class="social-login">
+                        <div class="social-login-title">Or continue with</div>
+                        <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+                            <button class="btn btn-outline" style="flex: 1;">Google</button>
+                            <button class="btn btn-outline" style="flex: 1;">Discord</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 1.5rem; color: var(--muted-foreground); font-size: 0.875rem;">
+                    Already have an account? <a href="#" onclick="showPage('login')" style="color: var(--primary);">Login</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Pix Payment Modal -->
+    <div id="pix-payment-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('pix-payment-modal')">&times;</button>
+            <h2 class="modal-title">Pay with Pix</h2>
+            <div style="text-align: center;">
+                <p style="margin-bottom: 1rem; color: var(--muted-foreground);">
+                    Pay for your <span id="pix-plan-name">Premium Key</span> (R$<span id="pix-plan-price">30</span>) using Pix
+                </p>
+                <div style="background-color: white; width: 200px; height: 200px; margin: 0 auto 1.5rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center;">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Frame_1_49-CQoKTZfBgQERQIrNqjQdfBwir9rPs7.png" alt="Pix QR Code" style="width: 80%; height: 80%;">
+                </div>
+                <div style="display: flex; margin-bottom: 1.5rem;">
+                    <div style="background-color: var(--input); padding: 0.75rem; border-radius: 0.375rem 0 0 0.375rem; flex-grow: 1; text-align: left; font-family: monospace; color: var(--muted-foreground);" id="pix-key">sonicvitor12345@gmail.com</div>
+                    <button class="btn" style="border-radius: 0 0.375rem 0.375rem 0;" onclick="copyPixKey()">Copy</button>
+                </div>
+                <p style="color: var(--muted-foreground); text-align: left; margin-bottom: 1.5rem;">
+                    Scan the QR code or copy the Pix key to make your payment. After payment, send the receipt to our Discord for key activation.
+                </p>
+                <button class="btn" style="width: 100%;" onclick="window.open('https://discord.gg/c7JwD8uK', '_blank')">Go to Discord</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <div class="notification-content">
+            <div class="notification-icon">✓</div>
+            <div class="notification-message" id="notification-message">Copied to clipboard!</div>
+        </div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span id="theme-icon">🌙</span>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="back-to-top" onclick="scrollToTop()" aria-label="Back to top">
+        ↑
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sapphire Oficial</h3>
+                    <p style="color: var(--muted-foreground); margin-bottom: 1rem;">Premium Roblox scripts and executor for the ultimate gaming experience.</p>
+                    <div class="social-links">
+                        <a href="https://discord.gg/c7JwD8uK" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Discord">D</a>
+                        <a href="#" class="social-link" aria-label="Twitter">T</a>
+                        <a href="#" class="social-link" aria-label="YouTube">Y</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a onclick="showPage('home')">Home</a></li>
+                        <li><a onclick="showPage('scripts')">Scripts</a></li>
+                        <li><a onclick="showPage('executor')">Executor</a></li>
+                        <li><a onclick="showPage('keys')">Keys</a></li>
+                        <li><a onclick="showPage('faq')">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="mailto:sonicvitor12345@gmail.com">Contact Us</a></li>
+                        <li><a href="https://discord.gg/c7JwD8uK" target="_blank" rel="noopener noreferrer">Discord Server</a></li>
+                        <li><a onclick="showPage('faq')">Tutorials</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p style="color: var(--muted-foreground); margin-bottom: 1rem;">Subscribe to get updates on new scripts and features.</p>
+                    <div style="display: flex;">
+                        <input type="email" placeholder="Your email" class="form-input" style="border-radius: 0.25rem 0 0 0.25rem;">
+                        <button class="btn" style="border-radius: 0 0.25rem 0.25rem 0;">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 Sapphire Oficial. All rights reserved.
+            </div>
+            
+            <div class="credits">
+                Made By Vitor ♥️<br>
+                <a href="https://discord.gg/c7JwD8uK" target="_blank" rel="noopener noreferrer">Sapphire Team</a>
+            </div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <button onclick="resetIntro()" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">Reset Intro</button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Script data
+        const scriptData = {
+            'phantom-forces': {
+                title: 'Phantom Forces Script',
+                description: 'Advanced aimbot and ESP for Phantom Forces with customizable settings. This script provides a complete solution for dominating in Phantom Forces with features like silent aim, wallhack, ESP, and more.',
+                badges: ['FPS', 'Popular'],
+                code: `-- Phantom Forces Script
+-- SOON`
+            },
+            'blox-fruits': {
+                title: 'Blox Fruits Script',
+                description: 'Auto-farm, teleport, and item finder for Blox Fruits. This script provides a complete solution for Blox Fruits with features like auto-farm, auto-quest, teleport, and more.',
+                badges: ['RPG', 'New'],
+                code: `-- Blox Fruits Script
+-- SOON`
+            },
+            'adopt-me': {
+                title: 'Adopt Me Script',
+                description: 'Pet simulator and trading helper for Adopt Me. This script provides a complete solution for Adopt Me with features like auto-farm, auto-hatch, and more.',
+                badges: ['Simulation'],
+                code: `-- Adopt Me Script
+-- SOON`
+            },
+            'arsenal': {
+                title: 'Arsenal Script',
+                description: 'Complete Arsenal script with silent aim and wallhack. This script provides a complete solution for Arsenal with features like aimbot, ESP, and more.',
+                badges: ['FPS', 'Popular'],
+                code: `-- Arsenal Script
+-- SOON`
+            },
+            'pet-simulator': {
+                title: 'Pet Simulator X Script',
+                description: 'Auto-farm, auto-hatch, and teleport script for Pet Simulator X. This script provides a complete solution for Pet Simulator X with features like auto-farm, auto-hatch, and more.',
+                badges: ['RPG'],
+                code: `-- Pet Simulator X Script
+-- SOON`
+            },
+            'bad-business': {
+                title: 'Bad Business Script',
+                description: 'Silent aim, ESP, and weapon mods for Bad Business. This script provides a complete solution for Bad Business with features like aimbot, ESP, and more.',
+                badges: ['FPS', 'New'],
+                code: `-- Bad Business Script
+-- SOON`
+            },
+            'brookhaven': {
+                title: 'Brookhaven Script',
+                description: 'Admin commands and teleport for Brookhaven RP. This script provides a complete solution for Brookhaven with features like admin commands, teleport, and more.',
+                badges: ['Simulation'],
+                code: `-- Brookhaven Script
+-- SOON`
+            },
+            'king-legacy': {
+                title: 'King Legacy Script',
+                description: 'Auto-farm, auto-quest, and teleport for King Legacy. This script provides a complete solution for King Legacy with features like auto-farm, auto-quest, and more.',
+                badges: ['RPG', 'Popular'],
+                code: `-- King Legacy Script
+-- SOON`
+            },
+            'doors': {
+                title: 'Doors Script',
+                description: 'ESP, entity detection, and auto-complete for Doors. This script provides a complete solution for Doors with features like ESP, entity detection, and more.',
+                badges: ['Adventure', 'New'],
+                code: `-- Doors Script
+-- SOON`
+            },
+            'lumber-tycoon': {
+                title: 'Lumber Tycoon 2 Script',
+                description: 'Auto-farm, teleport, and item duplication for Lumber Tycoon 2. This script provides a complete solution for Lumber Tycoon 2 with features like auto-farm, teleport, and more.',
+                badges: ['Tycoon'],
+                code: `-- Lumber Tycoon 2 Script
+-- SOON`
+            },
+            'jailbreak': {
+                title: 'Jailbreak Script',
+                description: 'Auto-rob, teleport, and vehicle mods for Jailbreak. This script provides a complete solution for Jailbreak with features like auto-rob, teleport, and more.',
+                badges: ['Adventure', 'Popular'],
+                code: `-- Jailbreak Script
+-- SOON`
+            }
+        };
+
+        // Page system
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show the selected page
+            document.getElementById(pageId + '-page').classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Close mobile menu if open
+            document.querySelector('nav').classList.remove('active');
+        }
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-button').addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('active');
+        });
+
+        // FAQ toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const faqItem = this.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+
+        // Tab system
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                const tabsContainer = this.closest('.tabs');
+                
+                // Remove active class from all tabs
+                tabsContainer.querySelectorAll('.tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Hide all tab content
+                document.querySelectorAll(`[data-tab-content]`).forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Show the selected tab content
+                document.querySelector(`[data-tab-content="${tabId}"]`).classList.add('active');
+            });
+        });
+
+        // Script details
+        function showScriptDetails(scriptId) {
+            const script = scriptData[scriptId];
+            
+            if (!script) {
+                return;
+            }
+            
+            // Set script details
+            document.getElementById('script-title').textContent = script.title;
+            document.getElementById('script-description').textContent = script.description;
+            document.getElementById('script-code').textContent = script.code;
+            
+            // Set badges
+            const badgesContainer = document.getElementById('script-badges');
+            badgesContainer.innerHTML = '';
+            
+            script.badges.forEach(badge => {
+                const badgeElement = document.createElement('span');
+                badgeElement.className = 'badge';
+                badgeElement.textContent = badge;
+                badgesContainer.appendChild(badgeElement);
+            });
+            
+            // Show script details page
+            showPage('script-details');
+        }
+
+        // Copy script
+        function copyScript() {
+            const scriptCode = document.getElementById('script-code').textContent;
+            navigator.clipboard.writeText(scriptCode);
+            showNotification('Script copied to clipboard!');
+        }
+
+        // Download script
+        function downloadScript() {
+            const scriptTitle = document.getElementById('script-title').textContent;
+            const scriptCode = document.getElementById('script-code').textContent;
+            const fileName = scriptTitle.toLowerCase().replace(/\s+/g, '-') + '.lua';
+            
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(scriptCode));
+            element.setAttribute('download', fileName);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+            
+            showNotification('Script downloaded!');
+        }
+
+        // Download executor
+        function downloadExecutor() {
+            showNotification('Executor download started!');
+            setTimeout(() => {
+                showNotification('Please check your Discord for the download link!');
+                setTimeout(() => {
+                    window.open('https://discord.gg/c7JwD8uK', '_blank');
+                }, 2000);
+            }, 2000);
+        }
+
+        // Show Pix payment
+        function showPixPayment(planName, price) {
+            document.getElementById('pix-plan-name').textContent = planName;
+            document.getElementById('pix-plan-price').textContent = price;
+            openModal('pix-payment-modal');
+        }
+
+        // Copy Pix key
+        function copyPixKey() {
+            const pixKey = document.getElementById('pix-key').textContent;
+            navigator.clipboard.writeText(pixKey);
+            showNotification('Pix key copied to clipboard!');
+        }
+
+        // Modal system
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Notification system
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationMessage = document.getElementById('notification-message');
+            
+            notificationMessage.textContent = message;
+            notification.classList.add('active');
+            
+            setTimeout(() => {
+                notification.classList.remove('active');
+            }, 3000);
+        }
+
+        // Filter system
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const scriptCards = document.querySelectorAll('.script-card');
+        const scriptSearch = document.getElementById('script-search');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                // Add active class to clicked button
+                this.classList.add('active');
+
+                // Filter script cards
+                scriptCards.forEach(card => {
+                    const categories = card.getAttribute('data-categories');
+                    if (category === 'all' || categories.includes(category)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Clear search input
+                scriptSearch.value = '';
+            });
+        });
+
+        // Search system
+        scriptSearch.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+
+            scriptCards.forEach(card => {
+                const title = card.querySelector('.script-title').textContent.toLowerCase();
+                const description = card.querySelector('.script-description').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Deactivate filter buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+        });
+
+        // Theme toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeIcon.textContent = '🌙';
+            } else {
+                body.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.textContent = '☀️';
+            }
+        }
+
+        // Check local storage for theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+            document.getElementById('theme-icon').textContent = '☀️';
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Intro sequence
+        function showIntroSequence() {
+            // Check if the user has seen the intro before
+            if (!localStorage.getItem('sapphire_intro_seen')) {
+                const introOverlay = document.getElementById('intro-overlay');
+                const introSkip = document.getElementById('intro-skip');
+                
+                // Show the intro with a slight delay
+                setTimeout(() => {
+                    introOverlay.classList.add('active');
+                }, 500);
+                
+                // Set up the skip button
+                introSkip.addEventListener('click', hideIntroSequence);
+                
+                // Auto-hide after 8 seconds
+                setTimeout(hideIntroSequence, 8000);
+                
+                // Mark as seen
+                localStorage.setItem('sapphire_intro_seen', 'true');
+            }
+        }
+
+        function hideIntroSequence() {
+            const introOverlay = document.getElementById('intro-overlay');
+            introOverlay.classList.remove('active');
+            
+            // Remove completely after transition
+            setTimeout(() => {
+                introOverlay.style.display = 'none';
+            }, 500);
+        }
+
+        // Show intro sequence on page load
+        window.addEventListener('DOMContentLoaded', showIntroSequence);
+
+        // Add a function to reset the intro for testing purposes
+        function resetIntro() {
+            localStorage.removeItem('sapphire_intro_seen');
+            const introOverlay = document.getElementById('intro-overlay');
+            introOverlay.style.display = '';
+            showIntroSequence();
+        }
+    </script>
+</body>
+</html>
